@@ -1,0 +1,29 @@
+1 Httpclient对Session和Cookie处理的比较好，不想HttpUrlConnection还要setCookie和setSession；
+HttpClient上传文件非常方便，HttpUrlConnection需要拼装传输文件的协议（写起来比较繁琐）；
+
+2 HttpUrlConnection支持Gzip压缩，HttpClient虽然支持，但是要代码去处理；
+HttpUrlConnection的Gzip在传输大文件分包trunk有问题，只适合小文件，但是bug现在已经修复。
+
+3 HttpUrlConnection直接支持系统级的线程池，即打开的连接不会直接关掉，在一段时间内所有程序可共用；
+httpclient当然也能做到，但是不如官方系统底层支持好。
+
+4 HttpUrlConnection直接在系统级做了缓存策略处理，加快重复请求的速度。
+
+HttpClient
+功能更强，BUG更少，更容易控制细节
+
+1.HttpClient是apache的开源实现，而HttpUrlConnection是安卓标准实现，安卓SDK虽然集成了HttpClient，但官方支持的却是HttpUrlConnection；
+2.HttpUrlConnection直接支持GZIP压缩；HttpClient也支持，但要自己写代码处理；我们之前测试HttpUrlConnection的GZIP压缩在传大文件分包trunk时有问题，只适合小文件，不过这个BUG后来官方说已经修复了；
+3.HttpUrlConnection直接支持系统级连接池，即打开的连接不会直接关闭，在一段时间内所有程序可共用；HttpClient当然也能做到，但毕竟不如官方直接系统底层支持好；
+4.HttpUrlConnection直接在系统层面做了缓存策略处理，加快重复请求的速度。
+
+
+HttpUrlConnection 在 2.3 以前的版本是有 bug 的，所以之前的版本推荐使用 HttpClient，但是 google 现在已经不维护 HttpClient 了，5.1里面已经把 HttpClient 标过期。另外 HttpURLConnection 支持gzip压缩等，推荐首选它。
+
+在最新的Android 5.1.0版本中,HttpClient相关的API已经被deprecated了
+
+HttpClient实现比较稳定，bug数量也很少,但是API数量过多，很难在不破坏兼容性的情况下对它进行升级和扩展
+HttpURLConnection的API提供的比较简单，更加容易地去使用和扩展它,但是在2.2以前存在bug,所以一般在2.3及以上版本，使用的是HttpURLConnection，而在Android 2.2及以下版本，使用的是HttpClient
+
+
+
