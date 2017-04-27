@@ -114,7 +114,7 @@ MethodHandle c =  MethodHandles.lookup().findVirtual(obj.getClass, "println", mt
 
 ### 2.1.1 对象优先在 Eden 分配
 大多数情况下，对象在新生代 Eden 区中分配。当 Eden 区中没有足够空间进行分配时，虚拟机将发起一次 Minor GC。
-> Eden 区 : Survivor 区 = 1 : 8
+> Eden 区 : Survivor 区 = 8 : 1
 年轻代 : 老年代 = 1 : 2
 
 ### 2.1.2 大对象直接进入老年代
